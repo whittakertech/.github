@@ -1,129 +1,102 @@
-# WhittakerTech  
-**Delivering Reliable Architecture**
+# Hi, my name is Lee, and this is WhittakerTech
 
-WhittakerTech is a unified ecosystem of tools, engines, and practices designed by **Lee Whittaker** — a Fractional CTO and Rails Architect specializing in scalable systems, reliable deployments, and high-impact modernization for product teams.
+WhittakerTech is my home base for everything I build:  
+Rails engines, design systems, internal tools, documentation generators, and the kind of architectural experiments that make complex apps feel calm and maintainable again.
 
-Our mission is simple:
+I’ve spent over a decade doing full-stack engineering and rescuing fragile systems.  
+Along the way, I developed a simple philosophy:
 
-> **Clear architecture. Stable systems. Confident delivery.**
+> **Good engineering is modular, documented, composable, and built for the long haul.**
 
-WhittakerTech serves as both a technical umbrella for multiple software engines and a public home for case studies, architectural patterns, and guidance for teams operating Ruby on Rails at scale.
+WhittakerTech is the ecosystem where that philosophy lives.
 
 ---
 
-## What We Do
+## What I Do (as a Fractional CTO)
 
-### **Fractional CTO & Rails Architecture**
-Supporting companies that need senior technical direction without hiring a full-time executive.
+I help Rails teams and product companies who need **senior architecture**,  
+**DevOps clarity**, and **system stabilization** — without hiring a full-time CTO.
 
-- Architecture assessments using 4+1 and system-mapping  
-- Modernization strategies for long-lived Rails systems  
-- Roadmaps, trade-off analysis, and scaling guidance  
-- Developer experience improvements that increase velocity  
+If your app feels fragile, slow, unpredictable, or scary to touch…  
+I help bring it back into a state where shipping features feel safe again.
 
-### **System Rescue & Performance Engineering**
-Stabilizing critical products under real constraints.
+Some of the things I specialize in:
 
-- Debugging brittle async pipelines & background jobs  
-- Eliminating concurrency defects and unsafe workflows  
-- Performance tuning for throughput, memory, and latency  
-- Docker-based deployment modernization and CI/CD hardening  
+- Architecture & 4+1 system modeling  
+- High-throughput background jobs & async pipelines  
+- Fixing concurrency bugs and data integrity issues  
+- Performance work (memory, latency, N+1, indexing, profiling)  
+- Modernizing legacy Rails apps  
+- Docker migrations & CI/CD stabilization  
+- Developer-experience (DX) improvements  
+- System audits for founders & engineering leads  
 
-### **Modernization & Migration**
-Preparing products for 2026 and beyond.
-
-- Major Ruby and Rails version upgrades  
-- Remediation of UTF-8 & internationalization failures  
-- Safe alternatives to high-risk rewrites  
-- Integration with third-party APIs and event-driven systems  
+My work tends to blend software engineering, architecture, developer mentoring, and “let’s figure out where the real bottleneck is.”
 
 ---
 
 ## The WhittakerTech Ecosystem
 
-WhittakerTech is evolving into a constellation of reusable Rails engines and technical building blocks:
+WhittakerTech is evolving into a constellation of reusable Rails engines and technical building blocks — each one designed to solve one problem well, and solve it forever.
 
-- **Aeon** — Scheduling and temporal orchestration
-- **Argus** - Global event watching and reporting engine
-- **Atlas** - Geolocation management engine
-- **Chronicle** - Rails CMS for blogs
-- **Echo** - Universal remote API management tool
-- **Leeloo** - Role- and permissions-based internal access manager
-- **Mercury** - Universal handler for email, sms, and other forms of external contact
-- **Midas** — Currency normalization & financial consistency
-- **Nicodemus** — Auto-documentation, reflection, static docs
-- **Nimue** - Automatic form construction from API Schema
-- **Mosaic** - Manual organization and hierarchy layer
-- **Oscar** - Soft-delete management engine
-- **Sesame** — Authentication and secure identity layer  
-- **Spectra** — Design system, tokens, UI primitives
-- **Veritas** - Client and server validation SSOT engine
+### Core Engines
 
-These projects share a philosophy:
+- **Aeon** — Scheduling and temporal orchestration  
+- **Argus** — Global event watching and reporting  
+- **Atlas** — Geolocation management  
+- **Chronicle** — Rails-native CMS/blog engine  
+- **Echo** — Universal remote API management  
+- **Leeloo** — Permissions & RBAC layer  
+- **Mercury** — Email/SMS/external communication handling  
+- **Midas** — Currency normalization & financial consistency  
+- **Nicodemus** — Auto-documentation, reflection, static docs  
+- **Nimue** — Automatic form construction from API schema  
+- **Mosaic** — Manual organization & hierarchy management  
+- **Oscar** — Soft-delete & archival logic  
+- **Sesame** — Authentication & secure identity  
+- **Spectra** — Design system, tokens, and UI primitives  
+- **Veritas** — Validation SSOT, client + server truth model  
+
+These engines share a common DNA:
 
 > **Modular. Documented. Composable. Long-term maintainable.**
+
+They’re meant to be building blocks: strong foundations teams can reuse, extend, and trust.
 
 ---
 
 ## SaaS Offerings
 
-Built atop the engine ecosystem, WhittakerTech maintains several user-facing products:
+Some of these engines power full SaaS applications:
 
-- **Enseblize** - Ensemble rehearsal solution tool
-- **Subscribify** - Universal subscription managment engine
-- **Red Lily Music** — Music DSL and LilyPond-powered tooling
+- **Enseblize** — Scheduling & organization for choirs and ensembles  
+- **Subscribify** — Universal subscription management  
+- **Red Lily Music** — A music DSL + LilyPond-powered composition toolset  
 
----
-
-## Case Studies & Writing
-
-WhittakerTech maintains a growing library of deep-dive technical essays and system postmortems, including:
-
-- **1,361 images processed in 2 minutes** — async pipeline redesign  
-- **60% memory reduction** — Heroku Buildpacks → Docker transformation  
-- **118 failing tests resolved** — multi-stage Rails modernization  
-- **Concurrency failures in the wild** — data integrity repair at scale  
-- **Global UTF-8 corruption fixes** — rescuing international workflows  
-
-Full catalog available at: **https://whittakertech.com/blog**
+They’re all in active development — each one built on the same architectural values that define the ecosystem.
 
 ---
 
-## How We Think
+## A Bit About Me
 
-WhittakerTech blends engineering rigor with practical clarity:
+I’m a Fractional CTO, Rails architect, and performance engineer — but also a cross-stitcher, worldbuilder, analogist, and someone who genuinely loves the *craft* of engineering.
 
-- Systems > Symptoms  
-- Architecture > Quick fixes  
-- Reliability > Cleverness  
-- Measurable outcomes > Theoretical patterns  
-- Documentation > Tribal knowledge  
+I think about systems the same way that I do about embroidery:  
+tiny details, but part of a much bigger pattern.
 
-The ecosystem is built for teams who value **discipline, stability, and predictable engineering flow**.
+With years of experience communicating with cross-disciplinary teams, I have made an art of distilling the most complicated of ideas into digestible analogies.  
+Anything to make the idea *stick*.
 
 ---
 
-## Who We Work With
+## Want to Work Together?
 
-- SaaS companies whose Rails apps are revenue-critical  
-- Startups preparing for scale, audits, or investor scrutiny  
-- Organizations without a full-time CTO who need senior guidance  
-- Engineering teams inheriting legacy systems and modernization debt  
+If you’re looking for architecture guidance, system stabilization, or help charting a technical path forward for 2026 &mdash; I’m accepting new Fractional CTO clients for Q1.
 
-If your platform feels fragile, slow, or risky, WhittakerTech provides the architectural clarity to turn it into a foundation you can grow on.
+You can reach me through:
 
----
+- **Website:** https://whittakertech.com  
+- **LinkedIn:** https://linkedin.com/in/lee-whittaker-dev
+- **X:** https://x.com/LeeWhittaker  
 
-## 📬 Get in Touch
-
-- Website: **https://whittakertech.com**  
-- LinkedIn: **https://linkedin.com/in/lee-whittaker-dev**  
-- Email: **lee@whittakertech.com**
-
----
-
-## © 2025 WhittakerTech
-
-Built with intention.  
-Powered by craftsmanship.  
-Designed for teams who want to ship with confidence.
+Let’s make your system stable, scalable, and calm.
