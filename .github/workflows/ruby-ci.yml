@@ -1,0 +1,72 @@
+name: CI
+
+on: 
+  push:
+    branches: 
+      - master
+      - main
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.4"
+          bundler-cache: true
+
+      # -------------------------------
+      # RuboCop (only if config exists)
+      # -------------------------------
+      - name: RuboCop Linting
+        if: |
+          hashFiles('.rubocop.yml') != ''
+        run: |
+          echo "Running Rubocop..."
+          bundle exec rubocop
+
+      # -------------------------------
+      # RSpec (only if folder exists)
+      # -------------------------------
+      - name: Run RSpec
+        if: |
+          hashFiles('spec/**/*.rb') != ''
+        run: |
+          echo "Running RSpec..."
+          bundle exec rspec
+
+      # -------------------------------
+      # Minitest (only if folder exists)
+      # -------------------------------
+      - name: Run Minitest
+        if: |
+          hashFiles('test/**/*.rb') != '' && hashFiles('spec/**/*.rb') == ''
+        run: |
+          echo "Running Minitest..."
+          bundle exec rake test
+          
+      # -------------------------------
+      # Rails (only if railtie/engine present)
+      # -------------------------------
+      - name: Run Rails Tests
+        if: |
+          hashFiles('config/application.rb') != '' ||
+          hashFiles('lib/**/engine.rb') != ''
+        run: |
+          echo "Detected Rails engine or app. Running Rails test tasks..."
+          bundle exec rake
+
+      # -------------------------------
+      # Yard Docs (optional)
+      # -------------------------------
+      - name: Build YARD Docs
+        if: |
+          hashFiles('.yardopts') != ''
+        run: |
+          echo "Building YARD documentation..."
+          bundle exec yard doc
