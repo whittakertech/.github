@@ -1,8 +1,8 @@
 name: Release Gem
 
-on: 
+on:
   push:
-    branches: 
+    branches:
       - master
       - main
     tags:
@@ -37,8 +37,8 @@ jobs:
         run: |
           TAG=${{ steps.version.outputs.version }}
 
-          if git rev-parse "$TAG >/dev/null 2/&1; then
-            echo "Tag $TAG already exists-skipping.
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            echo "Tag $TAG already exists — skipping."
             exit 0
           fi
 
@@ -46,8 +46,8 @@ jobs:
           git tag "$TAG"
           git push origin "$TAG"
         env:
-          GITHUB_TOKEN:  ${{ secrets.GITHUB_TOKEN }}
-          
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   release:
     needs: auto_tag
     if: startsWith(github.ref, 'refs/tags/v')
@@ -92,4 +92,3 @@ jobs:
 
       - name: Push to RubyGems
         run: gem push "${{ steps.gem.outputs.gemfile }}"
-    
