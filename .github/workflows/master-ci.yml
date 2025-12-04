@@ -1,0 +1,49 @@
+name: WhittakerTech Master CI/CD Pipeline
+
+on:
+  workflow_call:
+    inputs:
+      docs_enabled:
+        description: "Enable MkDocs + YARD documentation build"
+        type: boolean
+        default: true
+      release_enabled:
+        description: "Enable gem publishing on version tags"
+        type: boolean
+        default: true
+
+# --------------------------------------------------------------------
+# Shared CI/CD Orchestration for All WhittakerTech Gems and Engines
+#
+# Requirements for consuming repositories:
+#
+# - `.rubocop.yml` in root     → enables RuboCop step in ruby-ci.yml
+# - `/spec/` directory         → enables RSpec tests
+# - `/test/` directory         → enables Minitest (unless RSpec exists)
+# - `.yardopts` file           → enables YARD documentation generation
+# - `mkdocs.yml`               → enables MkDocs site generation
+# - A valid `.gemspec`         → required for gem release workflow
+# - Secret: RUBYGEMS_API_KEY   → required for gem publication
+#
+# Notes:
+# - This workflow does *not* execute inside the `.github` repo itself.
+# - All child workflows are referenced via reusable workflow calls.
+# --------------------------------------------------------------------
+
+jobs:
+  ruby_ci:
+    name: Ruby CI
+    if: github.repository != 'whittakertech/.github'
+    uses: whittakertech/.github/.github/workflows/ruby-ci.yml@main
+
+  build_docs:
+    name: Build Docs (MkDocs + YARD)
+    if: ${{ inputs.docs_enabled && github.repository != 'whittakertech/.github' }}
+    needs: ruby_ci
+    uses: whittakertech/.github/.github/workflows/docs-build.yml@main
+
+  release_gem:
+    name: Release Gem
+    if: ${{ inputs.release_enabled && github.repository != 'whittakertech/.github' }}
+    needs: ruby_ci
+    uses: whittakertech/.github/.github/workflows/release-gem.yml@main
