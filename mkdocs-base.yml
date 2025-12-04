@@ -1,0 +1,54 @@
+site_name: "WhittakerTech Documentation"
+site_description: "Unified documentation across the WhittakerTech Galaxy"
+
+theme:
+  name: material
+  logo: docs/assets/logo.png
+  favicon: docs/assets/favicon.png
+
+  palette:
+    scheme: slate
+
+  features:
+    - navigation.instant
+    - navigation.sections
+    - navigation.indexes
+    - toc.integrate
+    - content.code.copy
+    - search.suggest
+    - search.highlight
+
+extra_css:
+  - docs/assets/custom.css
+
+extra:
+  generator: false
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed
+  - pymdownx.magiclink
+  - pymdownx.details
+  - pymdownx.snippets
+
+plugins:
+  - search
+  - autorefs
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        ruby:
+          setup_commands:
+            - bundle install
+            - yard doc
+
+nav:
+  - Home: index.md

@@ -1,0 +1,21 @@
+site_name: WhittakerTech Docs
+site_description: Shared documentation foundation for WhittakerTech gems.
+site_url: https://dev.whittakertech.com/
+
+docs_dir: docs
+
+theme:
+  name: material
+  language: en
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+
+extra_css:
+  - stylesheets/extra.css
+
+nav:
+  - Home: index.md
+  - API: api/README.md
