@@ -1,8 +1,8 @@
 name: CI
 
-on: 
+on:
   push:
-    branches: 
+    branches:
       - master
       - main
   pull_request:
@@ -24,49 +24,47 @@ jobs:
       # RuboCop (only if config exists)
       # -------------------------------
       - name: RuboCop Linting
-        if: |
-          hashFiles('.rubocop.yml') != ''
+        if: hashFiles('.rubocop.yml') != ''
         run: |
-          echo "Running Rubocop..."
+          echo "Running RuboCop..."
           bundle exec rubocop
 
       # -------------------------------
       # RSpec (only if folder exists)
       # -------------------------------
       - name: Run RSpec
-        if: |
-          hashFiles('spec/**/*.rb') != ''
+        if: hashFiles('spec/**/*.rb') != ''
         run: |
           echo "Running RSpec..."
           bundle exec rspec
 
       # -------------------------------
       # Minitest (only if folder exists)
+      # Note: ensure RSpec didn't already run
       # -------------------------------
       - name: Run Minitest
-        if: |
-          hashFiles('test/**/*.rb') != '' && hashFiles('spec/**/*.rb') == ''
+        if: hashFiles('test/**/*.rb') != '' && hashFiles('spec/**/*.rb') == ''
         run: |
           echo "Running Minitest..."
           bundle exec rake test
-          
+
       # -------------------------------
-      # Rails (only if railtie/engine present)
+      # Rails Test Tasks
+      # Only if a Rails engine or application exists.
       # -------------------------------
       - name: Run Rails Tests
         if: |
           hashFiles('config/application.rb') != '' ||
           hashFiles('lib/**/engine.rb') != ''
         run: |
-          echo "Detected Rails engine or app. Running Rails test tasks..."
+          echo "Detected Rails engine or app. Running Rails test task..."
           bundle exec rake
 
       # -------------------------------
-      # Yard Docs (optional)
+      # YARD documentation (optional)
       # -------------------------------
       - name: Build YARD Docs
-        if: |
-          hashFiles('.yardopts') != ''
+        if: hashFiles('.yardopts') != ''
         run: |
           echo "Building YARD documentation..."
           bundle exec yard doc
