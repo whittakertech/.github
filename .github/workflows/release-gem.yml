@@ -1,12 +1,7 @@
 name: Release Gem
 
 on:
-  push:
-    branches:
-      - master
-      - main
-    tags:
-      - "v*.*.*"
+  workflow_call:
 
 env:
   GEMSPEC: "*.gemspec"
