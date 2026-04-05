@@ -29,11 +29,12 @@ jobs:
       - name: Send Discord notification
         env:
           DISCORD_WEBHOOK_URL: ${{ vars.DISCORD_WEBHOOK_URL }}
+          JOB_RESULTS: ${{ inputs.job_results }}
         run: |
           python3 -c "
           import json, subprocess, os
 
-          results = json.loads('${{ inputs.job_results }}')
+          results = json.loads(os.environ['JOB_RESULTS'])
           fields = [
             {'name': ('❌ ' if v == 'failure' else '✅ ') + k.replace('-', ' ').title(),
              'value': v.capitalize(), 'inline': True}
