@@ -1,0 +1,61 @@
+name: Discord Failure Notification
+
+on:
+  workflow_call:
+    inputs:
+      ref_name:
+        type: string
+        required: true
+      repository:
+        type: string
+        required: true
+      actor:
+        type: string
+        required: true
+      run_id:
+        type: string
+        required: true
+      server_url:
+        type: string
+        required: true
+      job_results:
+        type: string
+        required: true
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Discord notification
+        env:
+          DISCORD_WEBHOOK_URL: ${{ vars.DISCORD_WEBHOOK_URL }}
+        run: |
+          python3 -c "
+          import json, subprocess, os
+
+          results = json.loads('${{ inputs.job_results }}')
+          fields = [
+            {'name': ('❌ ' if v == 'failure' else '✅ ') + k.replace('-', ' ').title(),
+             'value': v.capitalize(), 'inline': True}
+            for k, v in results.items()
+          ]
+
+          payload = json.dumps({
+            'embeds': [{
+              'title': '❌ CI Failed — ${{ inputs.ref_name }}',
+              'description': (
+                '**Repo:** ${{ inputs.repository }}\n'
+                '**Actor:** ${{ inputs.actor }}\n'
+                '**Run:** ${{ inputs.server_url }}/${{ inputs.repository }}/actions/runs/${{ inputs.run_id }}'
+              ),
+              'color': 15158332,
+              'fields': fields
+            }]
+          })
+
+          subprocess.run([
+            'curl', '-X', 'POST', os.environ['DISCORD_WEBHOOK_URL'],
+            '-H', 'Content-Type: application/json',
+            '-d', payload
+          ])
+          "
