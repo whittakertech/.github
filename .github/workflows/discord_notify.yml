@@ -21,6 +21,9 @@ on:
       job_results:
         type: string
         required: true
+    secrets:
+      DISCORD_WEBHOOK_URL:
+        required: true
 
 jobs:
   notify:
