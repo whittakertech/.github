@@ -55,12 +55,14 @@ jobs:
 
       # -------------------------------
       # Rails Test Tasks
-      # Only if a Rails engine or application exists.
+      # Only for a Rails engine/app that has neither RSpec nor Minitest —
+      # otherwise this duplicates (and can fail on) the suite already run above.
       # -------------------------------
       - name: Run Rails Tests
         if: |
-          hashFiles('config/application.rb') != '' ||
-          hashFiles('lib/**/engine.rb') != ''
+          (hashFiles('config/application.rb') != '' || hashFiles('lib/**/engine.rb') != '') &&
+          hashFiles('spec/**/*.rb') == '' &&
+          hashFiles('test/**/*.rb') == ''
         run: |
           echo "Detected Rails engine or app. Running Rails test task..."
           bundle exec rake
