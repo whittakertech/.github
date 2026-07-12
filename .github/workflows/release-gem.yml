@@ -10,6 +10,8 @@ jobs:
   auto_tag:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v4
@@ -47,6 +49,8 @@ jobs:
     needs: auto_tag
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v4
@@ -87,3 +91,26 @@ jobs:
 
       - name: Push to RubyGems
         run: gem push "${{ steps.gem.outputs.gemfile }}"
+
+      - name: Extract CHANGELOG section
+        id: changelog
+        if: hashFiles('CHANGELOG.md') != ''
+        run: |
+          NOTES=$(awk -v ver="${{ steps.gem.outputs.version }}" '
+            $0 ~ "^## \\[" ver "\\]" {found=1; next}
+            found && /^## \[/ {exit}
+            found {print}
+          ' CHANGELOG.md)
+          {
+            echo "notes<<GHRELEASE_EOF"
+            echo "$NOTES"
+            echo "GHRELEASE_EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: "v${{ steps.gem.outputs.version }}"
+          name: "v${{ steps.gem.outputs.version }}"
+          body: ${{ steps.changelog.outputs.notes }}
+          generate_release_notes: ${{ steps.changelog.outputs.notes == '' }}
