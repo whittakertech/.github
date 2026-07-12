@@ -35,15 +35,18 @@ jobs:
     name: Ruby CI
     if: github.repository != 'whittakertech/.github'
     uses: whittakertech/.github/.github/workflows/ruby-ci.yml@main
+    secrets: inherit
 
   build_docs:
     name: Build Docs (MkDocs + YARD)
     if: ${{ inputs.docs_enabled && github.repository != 'whittakertech/.github' }}
     needs: ruby_ci
     uses: whittakertech/.github/.github/workflows/docs-build.yml@main
+    secrets: inherit
 
   release_gem:
     name: Release Gem
     if: ${{ inputs.release_enabled && github.repository != 'whittakertech/.github' }}
     needs: ruby_ci
     uses: whittakertech/.github/.github/workflows/release-gem.yml@main
+    secrets: inherit
