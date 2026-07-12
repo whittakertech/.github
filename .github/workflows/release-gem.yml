@@ -7,54 +7,18 @@ env:
   GEMSPEC: "*.gemspec"
 
 jobs:
-  auto_tag:
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
-    permissions:
-      contents: write
-    outputs:
-      created: ${{ steps.create_tag.outputs.created }}
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # required to push tags
-
-      - name: Resolve gemspec filename
-        id: gemspec
-        run: |
-          FILE=$(ls $GEMSPEC | head -n 1)
-          echo "file=$FILE" >> $GITHUB_OUTPUT
-
-      - name: Extract version from gemspec
-        id: version
-        run: |
-          VER=$(ruby -e "spec = Gem::Specification.load('${{ steps.gemspec.outputs.file }}'); puts spec.version")
-          echo "version=v$VER" >> $GITHUB_OUTPUT
-
-      - name: Create tag if missing
-        id: create_tag
-        run: |
-          TAG=${{ steps.version.outputs.version }}
-
-          if git rev-parse "$TAG" >/dev/null 2>&1; then
-            echo "Tag $TAG already exists — skipping."
-            echo "created=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          echo "Creating tag $TAG"
-          git tag "$TAG"
-          git push origin "$TAG"
-          echo "created=true" >> "$GITHUB_OUTPUT"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+  # Deliberately no auto_tag job. Gitea (WhittakerTech-org's source of truth)
+  # push-mirrors to GitHub with `git push --mirror`, which prunes any ref
+  # on GitHub not present on Gitea. A tag created directly on GitHub (e.g. by
+  # an Actions bot) never exists on Gitea, so the very next mirror sync
+  # deletes it — which then re-triggers this workflow, which recreates the
+  # tag, which tries to re-release an already-published version, which fails
+  # at `gem push`, forever, on every future push to master. Tag on Gitea
+  # (the source of truth) instead: `git tag vX.Y.Z && git push origin
+  # vX.Y.Z` against the Gitea remote. It mirrors down safely since it then
+  # genuinely exists at the source, and this job fires normally.
   release:
-    needs: auto_tag
-    if: |
-      always() &&
-      (needs.auto_tag.outputs.created == 'true' || startsWith(github.ref, 'refs/tags/v'))
+    if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     permissions:
       contents: write
